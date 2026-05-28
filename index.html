@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTTIS — Cleaner Life, Better Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .hero {
+            height: 100vh;
+            background: var(--sage);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--sage) 0%, #B8C8B3 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-tagline {
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: 200;
+            letter-spacing: 4px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.2s ease forwards 0.3s;
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--forest);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards 0.8s;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--warm-beige);
+            margin: 32px auto;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.2s;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 900px;
+            height: 50vh;
+            background: var(--warm-beige);
+            border-radius: 2px;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.8s;
+            cursor: pointer;
+        }
+
+        .scroll-indicator span {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--forest);
+        }
+
+        .scroll-arrow {
+            width: 1px;
+            height: 40px;
+            background: var(--forest);
+            position: relative;
+            animation: scrollBounce 2s infinite;
+        }
+
+        .scroll-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -3px;
+            width: 7px;
+            height: 7px;
+            border-right: 1px solid var(--forest);
+            border-bottom: 1px solid var(--forest);
+            transform: rotate(45deg);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .geo-accent {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--forest);
+            z-index: 2;
+            opacity: 0.6;
+        }
+
+        .geo-accent::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 1px;
+            background: var(--forest);
+            transform-origin: left center;
+        }
+
+        .geo-accent.top-left {
+            top: 15%;
+            left: 8%;
+        }
+
+        .geo-accent.top-left::after {
+            transform: rotate(45deg);
+        }
+
+        .geo-accent.top-right {
+            top: 15%;
+            right: 8%;
+        }
+
+        .geo-accent.top-right::after {
+            transform: rotate(-45deg);
+        }
+
+        .philosophy {
+            min-height: 100vh;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 48px;
+            text-align: center;
+        }
+
+        .philosophy-text {
+            max-width: 700px;
+        }
+
+        .philosophy-text h2 {
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 200;
+            line-height: 1.4;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+
+        .philosophy-text p {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--forest);
+            font-style: italic;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .philosophy-line {
+            width: 80px;
+            height: 1px;
+            background: var(--forest);
+            margin: 48px auto 0;
+            opacity: 0.5;
+        }
+
+        .chapter {
+            min-height: 100vh;
+            padding: 120px 48px;
+            position: relative;
+        }
+
+        .chapter-sage {
+            background: var(--sage);
+        }
+
+        .chapter-cream {
+            background: var(--cream);
+        }
+
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .chapter-header h2 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 200;
+            letter-spacing: 2px;
+            margin-top: 16px;
+        }
+
+        .chapter-01-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .image-large {
+            position: relative;
+            aspect-ratio: 4/5;
+            background: var(--warm-beige);
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .image-large img, .image-small img, .image-wide img, .image-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .image-large:hover img, .image-small:hover img, .image-wide:hover img, .image-grid:hover img {
+            transform: scale(1.03);
+        }
+
+        .image-small {
+            position: relative;
+            aspect-ratio: 3/4;
+            background: var(--cream);
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .chapter-01-right {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .chapter-01-right h3 {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .chapter-01-right p {
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--forest);
+        }
+
+        .chapter-caption {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--forest);
+            letter-spacing: 1px;
+        }
+
+        .chapter-02-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto 24px;
+        }
+
+        .image-grid {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: var(--sage);
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .image-wide {
+            position: relative;
+            aspect-ratio: 21/9;
+            background: var(--warm-beige);
+            overflow: hidden;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chapter-02-quote {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 16px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--forest);
+            letter-spacing: 1px;
+        }
+
+        .closing {
+            min-height: 60vh;
+            background: var(--sage);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 48px;
+            text-align: center;
+        }
+
+        .closing h2 {
+            font-size: clamp(36px, 7vw, 72px);
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            margin-bottom: 48px;
+        }
+
+        .closing-line {
+            width: 100px;
+            height: 1px;
+            background: var(--forest);
+            margin-bottom: 48px;
+            opacity: 0.5;
+        }
+
+        .newsletter {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .newsletter p {
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--forest);
+            margin-bottom: 24px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 1px solid var(--forest);
+            background: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--soft-black);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--forest);
+            opacity: 0.5;
+            font-style: italic;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--warm-beige);
+        }
+
+        .newsletter-form button {
+            padding: 16px 32px;
+            background: var(--forest);
+            color: var(--white);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--soft-black);
+        }
+
+        .newsletter-note {
+            font-size: 11px;
+            color: var(--forest);
+            opacity: 0.6;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .chapter {
+                padding: 80px 24px;
+            }
+
+            .chapter-01-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .chapter-02-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .philosophy, .closing {
+                padding: 80px 24px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .geo-accent {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav" id="nav">
+        <a href="index.html" class="nav-logo">O T T I S</a>
+        <div class="nav-links">
+            <a href="lookbook.html">Lookbook</a>
+            <a href="shop.html">Shop</a>
+            <a href="philosophy.html">Philosophy</a>
+            <a href="contact.html">Contact</a>
+            <div class="cart-icon" onclick="window.location.href='cart.html'">
+                <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M6 6L5 3H2"/></svg>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-image"></div>
+        
+        <div class="geo-accent top-left"></div>
+        <div class="geo-accent top-right"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-tagline">Cleaner Life,<br>Better Life</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-sub">Minimal Luxury for Everyday</p>
+        </div>
+        
+        <div class="scroll-indicator" onclick="document.getElementById('philosophy').scrollIntoView({behavior: 'smooth'})">
+            <span>Scroll to enter</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <section class="philosophy" id="philosophy">
+        <div class="section-label reveal">Our Philosophy</div>
+        <div class="philosophy-text reveal">
+            <h2>Everything you use daily<br>should feel clean, simple,<br>and intentional.</h2>
+            <p>A world where simplicity is not the absence of something, but the perfect presence of what matters.</p>
+        </div>
+        <div class="philosophy-line reveal"></div>
+    </section>
+
+    <section class="chapter chapter-sage" id="lookbook">
+        <div class="chapter-header reveal">
+            <div class="section-label">Chapter 01</div>
+            <h2>The Essence of OTTIS</h2>
+        </div>
+        
+        <div class="chapter-01-grid">
+            <div class="image-large reveal">
+                <div class="img-overlay">
+                    <span>Editorial Lifestyle</span>
+                    <span style="font-size:10px; margin-top:8px; opacity:0.7;">Soft natural light · Negative space</span>
+                </div>
+            </div>
+            <div class="chapter-01-right reveal">
+                <h3>Liquid Soap</h3>
+                <p>The first object.</p>
+                <div class="image-small">
+                    <div class="img-overlay">
+                        <span>Product Still</span>
+                        <span style="font-size:10px; margin-top:8px; opacity:0.7;">Warm beige · Soft shadow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chapter-caption reveal">Confidence in every moment —</div>
+        
+        <div style="text-align: center; margin-top: 48px;">
+            <a href="lookbook.html" class="btn reveal">View Full Lookbook</a>
+        </div>
+    </section>
+
+    <section class="chapter chapter-cream">
+        <div class="chapter-header reveal">
+            <div class="section-label">Chapter 02</div>
+            <h2>Everyday Intentionality</h2>
+        </div>
+        
+        <div class="chapter-02-grid">
+            <div class="image-grid reveal">
+                <div class="img-overlay">
+                    <span>Morning Ritual</span>
+                    <span style="font-size:10px; margin-top:8px; opacity:0.7;">Hands · Water · Light</span>
+                </div>
+            </div>
+            <div class="image-grid reveal" style="transition-delay: 0.1s;">
+                <div class="img-overlay">
+                    <span>Bathroom Shelf</span>
+                    <span style="font-size:10px; margin-top:8px; opacity:0.7;">Styled minimal</span>
+                </div>
+            </div>
+            <div class="image-grid reveal" style="transition-delay: 0.2s;">
+                <div class="img-overlay">
+                    <span>Texture Close-up</span>
+                    <span style="font-size:10px; margin-top:8px; opacity:0.7;">Pump · Liquid · Label</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="image-wide reveal">
+            <div class="img-overlay">
+                <span>Wide Lifestyle Scene</span>
+                <span style="font-size:10px; margin-top:8px; opacity:0.7;">Person at sink · Morning routine · Editorial composition</span>
+            </div>
+        </div>
+        
+        <div class="chapter-02-quote reveal">The objects we choose shape the moments we live.</div>
+    </section>
+
+    <section class="chapter chapter-sage" style="min-height: auto; padding: 100px 48px;">
+        <div class="chapter-header reveal">
+            <div class="section-label">The Collection</div>
+            <h2>Shop OTTIS</h2>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <div style="width: 300px; height: 400px; background: var(--cream); margin: 0 auto 40px; border-radius: 2px; display: flex; align-items: center; justify-content: center; position: relative;">
+                <div style="width: 60%; height: 70%; background: var(--warm-beige); border-radius: 100px 100px 20px 20px; position: relative; box-shadow: 0 20px 60px rgba(47, 61, 50, 0.15);">
+                    <div style="position: absolute; top: -15%; left: 50%; transform: translateX(-50%); width: 20%; height: 20%; background: var(--cream); border-radius: 4px 4px 0 0;"></div>
+                    <div style="position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); font-size: 12px; letter-spacing: 4px; color: var(--soft-black); opacity: 0.6;">OTTIS</div>
+                </div>
+            </div>
+            <h3 style="font-size: 28px; font-weight: 200; letter-spacing: 4px; margin-bottom: 12px;">Liquid Soap</h3>
+            <p style="font-size: 14px; font-weight: 300; font-style: italic; color: var(--forest); margin-bottom: 16px;">Clean. Simple. Intentional.</p>
+            <p style="font-size: 18px; font-weight: 300; letter-spacing: 2px; margin-bottom: 32px;">$28.00</p>
+            <a href="shop.html" class="btn reveal">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="closing">
+        <h2 class="reveal">Confidence<br>in every<br>moment</h2>
+        <div class="closing-line reveal"></div>
+        
+        <div class="newsletter reveal">
+            <p>Join the OTTIS world</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for joining the OTTIS world. We will be in touch soon.');">
+                <input type="email" placeholder="your@email.com" required>
+                <button type="submit">Enter</button>
+            </form>
+            <p class="newsletter-note">No spam. Only intention.</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">O T T I S</div>
+        <p class="footer-copy">© 2026 OTTIS. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://instagram.com/ottis" target="_blank">Instagram</a>
+            <a href="https://pinterest.com/ottis" target="_blank">Pinterest</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            const heroImage = document.querySelector('.hero-image');
+            
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+            if (heroImage) {
+                heroImage.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.15}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
